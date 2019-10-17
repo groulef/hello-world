@@ -1,11 +1,11 @@
 require 'date'
-require 'dotenv/load'
 require 'pony'
+require 'dotenv/load'
 
 class PrintLetter
   def initialize
     @now = DateTime.now
-    @index = @now.cweek - 41
+    @index = @now.cweek - 43
     @wday = @now.wday
     @letters = [
       "h", "h", "h",
@@ -37,8 +37,8 @@ class PrintLetter
 
   def commit
     filename = @now.to_s
-    system("touch #{filename}")
-    system("git add #{filename} && git commit -m 'Add #{filename}' && git push")
+    system("touch /home/havokx/hello-world/#{filename}")
+    system("cd /home/havokx/hello-world/ && git add #{filename} && git commit -m 'Add #{filename}' && git push")
   end
 
   def perform
@@ -134,7 +134,7 @@ rescue => exception
     :subject => "Failed to commit to Github.",
     :html_body => "Failed to commit today.",
     :via => :smtp,
-    :from => "contact@comunity.ovh",
+    :from => ENV["SMTP_USER"],
     :via_options => {
       :address              => 'smtp.gmail.com',
       :port                 => '587',
