@@ -6,6 +6,7 @@ class PrintLetter
   def initialize
     @now = DateTime.now
     @index = @now.cweek - 43
+    @index += 52 if @index < 0
     @wday = @now.wday
     @letters = [
       "h", "h", "h",
